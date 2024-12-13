@@ -5,17 +5,28 @@ import { auth } from "../firebaseConfig";
 
 const Imagen1 = require("../assets/wallpaper.jpg");
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const errorMessages = {
+        "auth/email-already-in-use": "El correo electrónico ya está en uso. Por favor, intenta con otro.",
+        "auth/invalid-email": "El correo electrónico ingresado no es válido. Verifica y vuelve a intentarlo.",
+        "auth/weak-password": "La contraseña es demasiado débil. Intenta con una más segura.",
+        "auth/user-not-found": "No se encontró una cuenta con ese correo electrónico. ¿Deseas registrarte?",
+        "auth/wrong-password": "La contraseña ingresada es incorrecta.",
+        
+    };
 
     const handleRegister = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             alert("Usuario registrado correctamente");
+            navigation.navigate("PokeCreate");
         } catch (err) {
-            setError(err.message);
+              const errorMessage = errorMessages[err.code] || "Ocurrió un error inesperado. Intenta nuevamente.";  // Mapeo del código de error
+            setError(errorMessage);  
         }
     };
 

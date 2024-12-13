@@ -6,6 +6,7 @@ import HomeScreen from "./screens/HomeScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import PokeCreate from "./screens/PokeCreate";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,6 +59,15 @@ const Navigation = () => {
                  <Stack.Screen
                     name="Login"
                     component={LoginScreen}
+                    options={{
+                        headerTintColor: "white",
+                        headerTitleAlign: "center",
+                        headerStyle: { backgroundColor: "red" },
+                    }}
+                />
+                 <Stack.Screen
+                    name="PokeCreate"
+                    component={PokeCreate}
                     options={{
                         headerTintColor: "white",
                         headerTitleAlign: "center",

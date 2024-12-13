@@ -10,13 +10,25 @@ const LoginScreen = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const errorMessages = {
+        "auth/email-already-in-use": "El correo electrónico ya está en uso. Por favor, intenta con otro.",
+        "auth/invalid-email": "El correo electrónico ingresado no es válido. Verifica y vuelve a intentarlo.",
+        "auth/weak-password": "La contraseña es demasiado débil. Intenta con una más segura.",
+        "auth/user-not-found": "No se encontró una cuenta con ese correo electrónico. ¿Deseas registrarte?",
+        "auth/wrong-password": "La contraseña ingresada es incorrecta.",
+        
+    };
+    
+
     const handleLogin = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             alert("Inicio de sesión exitoso");
-            navigation.navigate("Home");
+            navigation.navigate("PokeCreate");
         } catch (err) {
-            setError(err.message);
+            
+            const errorMessage = errorMessages[err.code] || "Ocurrió un error inesperado. Intenta nuevamente.";  // Mapeo del código de error
+            setError(errorMessage);  // Establecer el mensaje de error
         }
     };
 
